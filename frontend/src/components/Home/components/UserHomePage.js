@@ -19,25 +19,34 @@ const UserHomePage = ({ isAuthenticated }) => {
     }
   };
 
-  useEffect(updateProfileFromServer, []);
+  useEffect(() => updateProfileFromServer(), []);
 
   const { home } = ROUTES;
+
+  // TODO: to be refactored
+  const onProfileUpdated = profileData => {
+    setUserProfile(profileData);
+  };
+  home.account.props = {
+    onProfileUpdated
+  };
   const homeRoutes = Object.values(home);
   return (
     <>
       <Hero
         title="Ce pași ai de urmat"
-        subtitle="Pentru a te putea ajuta iata ce ai la dispozitie in contul tau:"
+        subtitle="Pentru a te putea ajuta iată ce ai la dispoziție în contul tău:"
         useFallbackIcon={true}
       />
       <StepsBar
         isProfileComplete={userProfile !== null && userProfile.id !== undefined}
       />
 
-      {homeRoutes.map(({ path, component, extraProps }) => (
+      {homeRoutes.map(({ path, component, props, extraProps }) => (
         <AuthenticatedRoute
           path={path}
           component={component}
+          props={props}
           key={path}
           {...extraProps}
         />
