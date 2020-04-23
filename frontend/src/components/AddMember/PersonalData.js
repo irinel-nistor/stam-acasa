@@ -47,6 +47,8 @@ export const PersonalData = ({
           type="text"
           label={"Prenume"}
           name="surname"
+          oninvalid="this.setCustomValidity('Acest camp este obligatoriu')"
+          oninput="this.setCustomValidity('')"
           required
           usePlaceholder
           value={userData.surname}
